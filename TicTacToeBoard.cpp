@@ -19,7 +19,21 @@ TicTacToeBoard::TicTacToeBoard()
 **/
 Piece TicTacToeBoard::toggleTurn()
 {
+
+  if(turn == X)
+  {
+    turn = O;
+    return turn;
+  }
+
+  if(turn == O)
+  {
+    turn = X;
+    return turn;
+  }
+
   return Invalid;
+
 }
 
 /**
@@ -34,7 +48,24 @@ Piece TicTacToeBoard::toggleTurn()
 Piece TicTacToeBoard::placePiece(int row, int column)
 {
   
+ if(row < 0 || column < 0 || row > BOARDSIZE-1 || column > BOARDSIZE-1)
+ {
+   toggleTurn();
+   return Invalid;
+ }
 
+ if(board[row][column] == Blank)
+ {
+    board[row][column] = turn;
+    toggleTurn();
+    return board[row][column];
+ }
+
+ if(board[row][column] != Blank)
+ {
+    toggleTurn();
+    return board[row][column];
+ }
 
   return Invalid;
 }
@@ -45,7 +76,19 @@ Piece TicTacToeBoard::placePiece(int row, int column)
 **/
 Piece TicTacToeBoard::getPiece(int row, int column)
 {
-  return Invalid;
+
+ if(row < 0 || column < 0 || row > BOARDSIZE-1 || column > BOARDSIZE-1)
+ {
+   return Invalid;
+ }
+
+ else if(board[row][column] != O && board[row][column] != X)
+ {
+   return Blank;
+ }
+
+ return board[row][column];
+
 }
 
 /**
@@ -54,5 +97,64 @@ Piece TicTacToeBoard::getPiece(int row, int column)
 **/
 Piece TicTacToeBoard::getWinner()
 {
-  return Invalid;
+  for(int i = 0; i<BOARDSIZE; i++)
+  {
+   for(int j = 0; j<BOARDSIZE; j++)
+   {
+    if(board[i][j] == Blank)
+    {
+      return Invalid;
+    }
+   }
+  }
+
+  int i = 0;
+  int j = 0;
+
+  for(i = 0; i<BOARDSIZE; i++)
+  {
+   if(board[i][j] == O && board[i][j+1] == O && board[i][j+2] == O)
+   {
+     return O;
+   } 
+   else if(board[i][j] == X && board[i][j+1] == X && board[i][j+2] == X)
+   {
+     return X;
+   }
+  }
+
+  i = 0;
+  j = 0;
+    
+  for(j = 0; j<BOARDSIZE; j++)
+  {
+   if(board[i][j] == X && board[i+1][j] == X && board[i+2][j] == X)
+   {
+     return X;
+   } 
+   else if (board[i][j] == O && board[i+1][j] == O && board[i+2][j] == O)
+   {
+     return O;
+   }
+  }
+
+  if(board[0][0] == X && board[1][1] == X && board[2][2] == X)
+  {
+    return X;
+  }
+  else if(board[2][2] == X && board[1][1] == X && board[0][0] == X)
+  {
+    return X;
+  }
+
+  if(board[0][0] == O && board[1][1] == O && board[2][2] == O)
+  {
+    return O;
+  }
+  else if(board[2][2] == O && board[1][1] == O && board[0][0] == O)
+  {
+    return O;
+  }
+
+  return Blank;
 }

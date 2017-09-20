@@ -74,3 +74,16 @@ TEST(TicTacToeBoardTest, full)
 	B.placePiece(2,0);
         ASSERT_EQ(Blank, B.getWinner());
 }
+
+TEST(TicTacToeBoardTest, brok)
+{
+        TicTacToeBoard B;
+        B.placePiece(0,0);
+        ASSERT_EQ(X, B.getPiece(0,0));
+        B.placePiece(0,7);
+ASSERT_EQ(X, B.getPiece(0,7));
+        B.placePiece(0,0);
+ASSERT_EQ(X, B.getPiece(0,0));
+        B.placePiece(0,1);
+ASSERT_EQ(X, B.getPiece(0,0));
+}

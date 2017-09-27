@@ -75,15 +75,37 @@ TEST(TicTacToeBoardTest, full)
         ASSERT_EQ(Blank, B.getWinner());
 }
 
+TEST(TicTacToeBoardTest, over)
+{
+	TicTacToeBoard B;
+        B.placePiece(0,0);
+        B.placePiece(0,0);
+	ASSERT_EQ(X, B.getPiece(0,0));
+}
+
+TEST(TicTacToeBoardTest, row)
+{
+	TicTacToeBoard B;
+        B.placePiece(7,0);
+        B.placePiece(0,7);
+	B.placePiece(7,7);
+
+}
+
+ /*
+ BUG: Switched the OR's for AND's in this for loop, normally wouldn't allow and of these things when placing
+ a pice but will allow with bug if one holds true. Note it breaks when trying to get the pice.
+ */
+
 TEST(TicTacToeBoardTest, brok)
 {
         TicTacToeBoard B;
         B.placePiece(0,0);
         ASSERT_EQ(X, B.getPiece(0,0));
         B.placePiece(0,7);
-ASSERT_EQ(X, B.getPiece(0,7));
+	ASSERT_EQ(X, B.getPiece(0,7));
         B.placePiece(0,0);
-ASSERT_EQ(X, B.getPiece(0,0));
+	ASSERT_EQ(X, B.getPiece(0,0));
         B.placePiece(0,1);
-ASSERT_EQ(X, B.getPiece(0,0));
+	ASSERT_EQ(X, B.getPiece(0,1));
 }

@@ -53,7 +53,7 @@ Piece TicTacToeBoard::placePiece(int row, int column)
  a pice but will allow with bug if one holds true.
  */
 
- if(row < 0 && column < 0 && row > BOARDSIZE-1 && column > BOARDSIZE-1)
+ if(row < 0 || column < 0 || row > BOARDSIZE-1 || column > BOARDSIZE-1)
  {
    toggleTurn();
    return Invalid;
